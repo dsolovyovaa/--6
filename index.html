@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+
+        console.log("TASK 1")
+        //task 1
+        let objects = [];
+        function createProduct(obj, callback) {
+            obj.id = objects.length + 1;
+            callback(obj);
+        }
+
+        function logProduct(product) {
+            console.log(product);
+        }
+        function logTotalPrice(product) {
+            product.hasOwnProperty("price") ? console.log(product.price) : console.log(`${product.name} does not have price`);
+        }
+
+        createProduct({ name: 'Phone', price: 30 }, logTotalPrice);
+        createProduct({ name: 'vitamin C supplement', price: 10 }, logTotalPrice);
+        createProduct({ name: 'Water', price: 5 }, logTotalPrice);
+        createProduct({ name: 'running shoes', brand: 'ABC' }, logProduct);
+        createProduct({ name: 'Water' }, logTotalPrice);
+
+
+        console.log("TASK 3")
+        //task 3
+        const medicines = {
+            Analgin: new Date('2022-05-01'),
+            Noshpa: new Date('2025-07-02'),
+            Alphaholin: new Date('2024-12-21'),
+            Aspirine: new Date('2022-08-15'),
+            Asparcame: new Date('2024-04-18'),
+        };
+        function getMedicines(medicines) {
+            const arrayOfEntries = Object.entries(medicines);
+            arrayOfEntries.sort((a, b) => a[1] - b[1]);
+            let newMedicines = [];
+            for (const [key, value] of arrayOfEntries) {
+                if (value > new Date()) {
+                    newMedicines.push(key);
+                }
+            }
+            return newMedicines;
+        }
+
+        console.log(getMedicines(medicines));
+
+
+
+
+        console.log("TASK 5")
+        //task 5
+        function FruitsArray(fruits) {
+            return fruits.map((fruit, index) => {
+                const { name, price } = fruit;
+                const newPrice = price * 0.8;
+                const newID = index + 1;
+                return { ID: newID, name, price: newPrice };
+            });
+        }
+
+        const fruits = [
+            { name: "apple", price: 200 },
+            { name: "orange", price: 300 },
+            { name: "grapes", price: 750 },
+        ];
+
+        const FruitArray = FruitsArray(fruits);
+        console.log(FruitArray);
+
+
+
+        console.log("TASK 7")
+        //task 7
+
+        class Client {
+            #login;
+            #email;
+            constructor(login, email) {
+                this.#login = login;
+                this.#email = email;
+            }
+            get login() {
+                return this.#login;
+            }
+            set login(login) {
+                this.#login = login;
+            }
+            get email() {
+                return this.#email;
+            }
+            set email(email) {
+                this.#email = email;
+            }
+        }
+
+
+        console.log("TASK 9")
+        //task 9
+        const tweets = [
+            { id: "000", likes: 5, tags: ["js", "nodejs"] },
+            { id: "001", likes: 2, tags: ["html", "css"] },
+            { id: "002", likes: 17, tags: ["html", "js", "nodejs"] },
+            { id: "003", likes: 8, tags: ["css", "react"] },
+            { id: "004", likes: 0, tags: ["js", "nodejs", "react"] },
+        ];
+
+        const tagCount = tweets.reduce((acc, tweet) => {
+            tweet.tags.forEach(tag => {
+                acc[tag] = (acc[tag] || 0) + 1;
+            });
+            return acc;
+        }, {});
+
+        console.log(tagCount);
+
+
+        console.log("TASK 10")
+        //task 10
+        function checkBrackets(str) {
+            const stack = [];
+            const bracketsMap = {
+                '(': ')',
+                '{': '}',
+                '[': ']',
+            };
+
+            for (let i = 0; i < str.length; i++) {
+                const char = str[i];
+
+                if (bracketsMap[char]) {
+                    stack.push(char);
+                } else if (Object.values(bracketsMap).includes(char)) {
+                    const lastBracket = stack.pop();
+
+                    if (bracketsMap[lastBracket] !== char) {
+                        return false;
+                    }
+                }
+            }
+
+            return stack.length === 0;
+        }
+
+        const codeString = 'function someFn() { if (true) { return "Hello World"; } }';
+        const result = checkBrackets(codeString);
+        console.log(result);
+
+        const codeString1 = 'function example() { if (true) { return [1, 2, 3]; } }';
+        console.log(checkBrackets(codeString1));
+
+        const codeString2 = 'const array = [1, 2, 3;';
+        console.log(checkBrackets(codeString2));
+
+        const codeString3 = 'if (x > 0 { console.log("Positive"); }';
+        console.log(checkBrackets(codeString3));
+
+        const codeString4 = 'function example() { if (true) { for (let i = 0; i < 5; i++) { console.log(i); } } }';
+        console.log(checkBrackets(codeString4));
+
+    </script>
+</head>
+
+<body>
+
+</body>
+
+</html>
